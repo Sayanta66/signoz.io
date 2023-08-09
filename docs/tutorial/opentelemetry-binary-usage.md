@@ -1,7 +1,7 @@
 ---
 id: opentelemetry-binary-usage-in-virtual-machine
 title: OpenTelemetry Binary Usage in Virtual Machine
-description: Using OpenTelemetry binary usage and monitor the virtual machine (VM).
+description: Using OpenTelemetry binary usage and monitoring the virtual machine (VM).
 ---
 
 import HostMetrics from '../shared/hostmetrics-list.md'
@@ -9,14 +9,14 @@ import HostMetrics from '../shared/hostmetrics-list.md'
 ### Overview
 
 This tutorial shows how you can deploy OpenTelemetry binary an agent, which
-collects telemetry data. Data such as traces, metrics and logs generated
+collects telemetry data. Data such as traces, metrics, and logs generated
 by applications most likely running in the same virtual machine (VM).
 
 It can also be used for collecting data from other VMs in the same cluster,
-data center or region, however binary is not recommended in that scenerio but
+data center or region, however, binary is not recommended in that scenario but
 container or deployment which can be easily scaled.
 
-In this guide, you will also learn to set up hostmetrics receiver to collect
+In this guide, you will also learn to set up a hostmetrics receiver to collect
 metrics from the VM and view in SigNoz.
 
 ### Prerequisites
@@ -27,26 +27,26 @@ metrics from the VM and view in SigNoz.
 
 ## Installation
 
-You can obtain OpenTelemetry collector binary in the assets of each releases:
+You can obtain the OpenTelemetry collector binary in the assets of each release:
 [open-telemetry/opentelemetry-collector-releases/releases][1].
 There are two ways of installation with binary release assets: `deb` as
 `systemd` and `tar.gz` as plain binary.
 
 ### Systemd
 
-Using `deb` file, OpenTelemetry Collector will be installed as a `systemd` and
-default configuration prepopulated at `/etc/otelcol-contrib` path. This method
+Using the `deb` file, OpenTelemetry Collector will be installed as a `systemd` and
+default configuration prepopulated at the `/etc/otelcol-contrib` path. This method
 would be preferable in case you want the OpenTelemetry collector to always be
 running in the background.
 
-To download `deb` file of release version `0.79.0`:
+To download the `deb` file of release version `0.79.0`:
 
 ```bash
 wget https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.79.0/otelcol-contrib_0.79.0_linux_amd64.deb
 ```
 
 :::info
-In case of different OpenTelemetry collector version, replace `0.79.0` with respective version.
+In the case of different OpenTelemetry collector versions, replace `0.79.0` with the respective version.
 :::
 
 To install `otelcol` as `systemd` using `dpkg`:
@@ -57,21 +57,21 @@ sudo dpkg -i otelcol-contrib_0.79.0_linux_amd64.deb
 
 ### Plain Binary
 
-Using `tar.gz` release asset, we can extract the OpenTelemetry collector binary
+Using the `tar.gz` release asset, we can extract the OpenTelemetry collector binary
 and default configuration at our desired path. We can run the binary directly
 with flags either use `tmux
 
-To download `tar.gz` file of release version `0.79.0`:
+To download the `tar.gz` file of release version `0.79.0`:
 
 ```bash
 wget https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.79.0/otelcol-contrib_0.79.0_linux_amd64.tar.gz
 ```
 
 :::info
-In case of different OpenTelemetry collector version, replace `0.79.0` with respective version.
+In the case of different OpenTelemetry collector versions, replace `0.79.0` with the respective version.
 :::
 
-To create `otelcol` folder and extract files from `tar.gz` to newly created folder:
+To create the `otelcol` folder and extract files from `tar.gz` to the newly created folder:
 
 ```bash
 mkdir otelcol-contrib && tar xvzf otelcol-contrib_0.79.0_linux_amd64.tar.gz -C otelcol-contrib/
@@ -79,13 +79,13 @@ mkdir otelcol-contrib && tar xvzf otelcol-contrib_0.79.0_linux_amd64.tar.gz -C o
 
 ## OpenTelemetry Collector Configuration
 
-Let's download standalone configuration for `otelcol` binary running in the VM:
+Let's download the standalone configuration for the `otelcol` binary running in the VM:
 
 ```bash
 wget https://raw.githubusercontent.com/SigNoz/benchmark/main/docker/standalone/config.yaml
 ```
 
-Replace `<IP of machine hosting SigNoz>` with the address to SigNoz in configuration
+Replace `<IP of machine hosting SigNoz>` with the address to SigNoz in the configuration
 highlighted below:
 
 ```yaml {3}
@@ -100,7 +100,7 @@ In the configuration above, we enable three receivers: `OTLP`, `hostmetrics`
 and `prometheus`.
 
 `OTLP` receiver is configured to receive all types of telemetry data:
-traces, metrics and logs. These data would be forwarded to SigNoz via
+traces, metrics, and logs. These data would be forwarded to SigNoz via
 OTLP gRPC endpoint.
 
 `hostmetrics` receiver is configured to collect various metrics of the virtual
@@ -131,7 +131,7 @@ To restart `otelcol` with updated config:
 sudo systemctl restart otelcol-contrib.service
 ```
 
-To check status of `otelcol`:
+To check the status of `otelcol`:
 
 ```bash
 sudo systemctl status otelcol-contrib.service
@@ -143,7 +143,7 @@ To view logs of `otelcol`:
 sudo journalctl -u otelcol-contrib.service
 ```
 
-To stop of `otelcol`:
+To stop `otelcol`:
 
 ```bash
 sudo systemctl stop otelcol-contrib.service
@@ -151,7 +151,7 @@ sudo systemctl stop otelcol-contrib.service
 
 ### Plain Binary
 
-It is recommended to use the `otelcol` binary inside terminal multiplexer
+It is recommended to use the `otelcol` binary inside the terminal multiplexer
 tools like `tmux` or `screen`, since plain binary usage is ephemeral.
 
 To copy the updated `config.yaml` file:
@@ -160,7 +160,7 @@ To copy the updated `config.yaml` file:
 cp config.yaml ./otelcol-contrib/config.yaml
 ```
 
-To change directory inside `otelcol-contrib` folder:
+To change the directory inside the `otelcol-contrib` folder:
 
 ```bash
 cd otelcol-contrib
@@ -172,7 +172,7 @@ To start `otelcol` with updated config:
 ./otelcol-contrib --config ./config.yaml &> otelcol-output.log & echo "$!" > otel-pid
 ```
 
-To view last 50 lines of `otelcol` logs:
+To view the last 50 lines of `otelcol` logs:
 
 ```bash
 tail -f -n 50 otelcol-output.log
@@ -186,7 +186,7 @@ kill "$(< otel-pid)"
 
 ## Test Sending Traces
 
-OpenTelemetry collector binary should be able to forward all types of telemetry data recevied:
+OpenTelemetry collector binary should be able to forward all types of telemetry data received:
 traces, metrics, and logs, to SigNoz OTLP endpoint via gRPC.
 
 Let's send sample traces to the `otelcol` using `telemetrygen`.
@@ -203,7 +203,7 @@ To send trace data using `telemetrygen`, execute the command below:
 telemetrygen traces --traces 1 --otlp-endpoint localhost:4317 --otlp-insecure
 ```
 
-Output should look like this:
+The output should look like this:
 
 ```
 ...
@@ -219,21 +219,21 @@ Output should look like this:
 ```
 
 If the SigNoz endpoint in the configuration is set correctly and accessible,
-you should be able to see the traces sent via OpenTelemetry collector in VM
+you should be able to see the traces sent via the OpenTelemetry collector in the VM
 from `telemetrygen` in the SigNoz UI.
 
 ![traces generated by telemetrygen][2]
 
 ## HostMetrics Dashboard
 
-In this section, we will generate and import dashboard with VM HostMetrics.
+In this section, we will generate and import a dashboard with VM HostMetrics.
 
 :::info
-Optionally, we can use generic dashboard with hostname variable. To do that,
+Optionally, we can use a generic dashboard with a hostname variable. To do that,
 import the `hostmetrics-with-variable.json` file in SigNoz UI from [here][4].
 :::
 
-It involves two steps: generting dashboard JSON using bash script and
+It involves two steps: generating dashboard JSON using bash scripts and
 importing dashboard JSON in SigNoz UI.
 
 To generate HostMetrics dashboards for the VM:
@@ -242,10 +242,10 @@ To generate HostMetrics dashboards for the VM:
 curl -sL https://github.com/SigNoz/benchmark/raw/main/dashboards/hostmetrics/hostmetrics-import.sh | bash
 ```
 
-Output should look similar to the following:
+The output should look similar to the following:
 
 ```
-✅ Succesfully generated Host Metrics dashboard: signoz-hostmetrics-one-piece.json
+✅ Successfully generated Host Metrics dashboard: signoz-hostmetrics-one-piece.json
 ```
 
 After importing the dashboard JSON, we should see the following dashboard in SigNoz UI:
