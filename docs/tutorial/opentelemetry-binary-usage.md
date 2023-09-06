@@ -1,7 +1,7 @@
 ---
 id: opentelemetry-binary-usage-in-virtual-machine
 title: OpenTelemetry Binary Usage in Virtual Machine
-description: Using OpenTelemetry binary usage and monitoring the virtual machine (VM).
+description: Using OpenTelemetry binary as an agent collector to monitor the virtual machine (VM) and applications running on it.
 ---
 
 import HostMetrics from '../shared/hostmetrics-list.md'
