@@ -6,6 +6,9 @@ sidebar_label: Distributed ClickHouse
 
 import MultiNodePart1 from '../../shared/distributed-ch-multinode-part-1.md'
 import MultiNodePart2 from '../../shared/distributed-ch-multinode-part-2.md'
+import SigNozCloud from '../../shared/signoz-cloud.md'
+
+<SigNozCloud />
 
 :::info
 In v0.12, SigNoz introduces support for distributed clickhouse. Multiple replicas for clickhouse shards are not supported in v0.12.0, please follow upcoming releases to check availability.
@@ -57,7 +60,7 @@ services:
 
   clickhouse-2:
     <<: *clickhouse-defaults
-    container_name: clickhouse-2
+    container_name: signoz-clickhouse-2
     hostname: clickhouse-2
     ports:
       - "9001:9000"
@@ -72,7 +75,7 @@ services:
 
   clickhouse-3:
     <<: *clickhouse-defaults
-    container_name: clickhouse-3
+    container_name: signoz-clickhouse-3
     hostname: clickhouse-3
     ports:
       - "9002:9000"
@@ -107,7 +110,7 @@ services:
 
   zookeeper-2:
     image: bitnami/zookeeper:3.7.0
-    container_name: zookeeper-2
+    container_name: signoz-zookeeper-2
     hostname: zookeeper-2
     user: root
     ports:
@@ -124,7 +127,7 @@ services:
 
   zookeeper-3:
     image: bitnami/zookeeper:3.7.0
-    container_name: zookeeper-3
+    container_name: signoz-zookeeper-3
     hostname: zookeeper-3
     user: root
     ports:

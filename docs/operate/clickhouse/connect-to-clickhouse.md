@@ -5,6 +5,9 @@ sidebar_label: Connect to ClickHouse
 ---
 
 import CHClientWithOutput from '../../shared/ch-client-with-output.md'
+import SigNozCloud from '../../shared/signoz-cloud.md'
+
+<SigNozCloud />
 
 Follow the instructions below for connecting to your ClickHouse database:
 
@@ -13,7 +16,7 @@ Follow the instructions below for connecting to your ClickHouse database:
 1. To exec to `clickhouse` container:
 
 ```bash
-docker exec -it clickhouse-setup_clickhouse_1 bash
+docker exec -it signoz-clickhouse bash
 ```
 
 <CHClientWithOutput/>
